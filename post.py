@@ -1,4 +1,3 @@
-import requests
 from flask import Flask, request, jsonify, send_from_directory
 from ai import AI
 
@@ -6,7 +5,6 @@ from ai import AI
 ai = AI()
 
 app = Flask(__name__)
-AI_ENDPOINT = "https://0268-174-173-174-219.ngrok-free.app/ask_ai"
 
 
 @app.route("/")
@@ -63,22 +61,10 @@ def ask_ai_endpoint():
             )
 
         # Forward the request to the external AI service
-        response = requests.post(AI_ENDPOINT, json=data)
+        response = ai.ask_ai(data["height"], data["weight"], data["sex"], data["goals"], data["activity"])
         # Log the response status and content for debugging
-        print("External service response:", response.status_code, response.content)
         # Check if the request to the external service was successful
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            return (
-                jsonify(
-                    {
-                        "error": "External AI service error",
-                        "status_code": response.status_code,
-                    }
-                ),
-                response.status_code,
-            )
+        return jsonify({"response": response})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

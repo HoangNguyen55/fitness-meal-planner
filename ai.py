@@ -60,7 +60,7 @@ class AI:
         torch.cuda.empty_cache()
 
     def ask_ai(
-        self, height: int, weight: int, sex: str, goals: str, activity: str
+        self, height: float, weight: float, sex: str, goals: str, activity: str
     ) -> str:
         if not self.started:
             logging.warn("AI have not been started yet")
