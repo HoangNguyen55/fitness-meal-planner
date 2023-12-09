@@ -35,7 +35,6 @@ class AI:
                 "type": "dynamic",
                 "factor": 2.0,
             },
-            local_files_only=True,
         )
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=True,
@@ -48,7 +47,6 @@ class AI:
             model_path,
             config=config,
             quantization_config=bnb_config,
-            local_files_only=True,
             device_map="auto",
             load_in_4bit=True,
         )
@@ -74,8 +72,10 @@ class AI:
         )
 
         input = self.tokenizer(complete_prompt, return_tensors="pt").to("cuda:0")
+        streamer = TextStreamer(self.tokenizer)
         output = self.model.generate(
             **input,
+            streamer=streamer,
             max_new_tokens=2048,
             eos_token_id=CHAT_EOS_TOKEN_ID,
         )
@@ -87,5 +87,5 @@ class AI:
 
 if __name__ == "__main__":
     ai = AI()
-    ai.start(os.path.expanduser("~/TinyLlama"))
+    ai.start("TinyLlama/TinyLlama-1.1B-Chat-v0.4")
     print(ai.ask_ai(5, 128, "male", "maintain", "low"))

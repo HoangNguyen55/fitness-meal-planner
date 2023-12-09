@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 @app.route("/ask_ai", methods=["POST"])
 def ask_ai_endpoint():
-    print("something")
     try:
         # Get data from the POST request as JSON
         data = request.get_json(force=True)
@@ -66,5 +65,5 @@ def ask_ai_endpoint():
 
 
 if __name__ == "__main__":
-    ai.start(os.path.expanduser("~/TinyLlama"))
-    app.run(host="0.0.0.0", port=6731, debug=True)
+    ai.start("TinyLlama/TinyLlama-1.1B-Chat-v0.4")
+    app.run(host="localhost", port=6731, debug=True)
