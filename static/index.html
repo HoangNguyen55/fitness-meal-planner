@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fitness Planner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Personalized Fitness Planner</h1>
+    <form id="userForm">
+        <label for="height">Your Height:</label>
+        <div class="input-group">
+            <input type="text" id="height" placeholder="e.g., 5'11''" required>
+            <span class="input-unit">ft/in</span>
+        </div>
+        <label for="weight">Your Weight:</label>
+        <div class="input-group">
+            <input type="number" id="weight" placeholder="150" required>
+            <span class="input-unit">lbs</span>
+        </div>
+        <label for="sex">Sex:</label>
+        <select id="sex" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <label for="goals">Fitness Goal:</label>
+        <select id="goals" required>
+            <option value="lose">Lose Weight</option>
+            <option value="gain">Gain Weight</option>
+            <option value="maintain">Maintain Weight</option>
+        </select>
+        <label for="activity">Activity Level:</label>
+        <select id="activity" required>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    <div id="response"></div>
+</div>
+<div class="background-image"></div>
+<script src="/static/script.js"></script>
+</body>
+</html>
