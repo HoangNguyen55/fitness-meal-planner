@@ -13,16 +13,16 @@ document.getElementById('userForm').addEventListener('submit', function(e) {
     const goals = document.getElementById('goals').value;
     const activity = document.getElementById('activity').value;
 
-    fetch('http://localhost:6731/ask_ai', {
+    fetch('/ask_ai', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ height, weight, sex, goals, activity }),
     })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('response').textContent = data.response;
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('response').textContent = data.response;
+        })
+        .catch(error => console.error('Error:', error));
 });
