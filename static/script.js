@@ -1,14 +1,24 @@
 document.getElementById('userForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    let height = document.getElementById('height').value;
-    // Example conversion: if user inputs 5'11, convert it to inches (5*12 + 11)
-    let feetInches = height.split("'");
-    if (feetInches.length === 2) {
-        height = parseInt(feetInches[0]) * 12 + parseInt(feetInches[1]);
+    let heightFeet = document.getElementById('heightFeet').value;
+    let heightInches = document.getElementById('heightInches').value;
+
+    // Validation
+    if(isNaN(heightFeet) || isNaN(heightInches) || heightFeet < 0 || heightInches < 0 || heightInches >= 12) {
+        alert('Please enter a valid height in feet and inches.');
+        return;
     }
 
-    const weight = document.getElementById('weight').value;
+    let weight = document.getElementById('weight').value;
+    if(isNaN(weight) || weight <= 0) {
+        alert('Please enter a valid weight.');
+        return;
+    }
+
+    // Calculate height in inches
+    let height = parseInt(heightFeet) * 12 + parseInt(heightInches);
+
     const sex = document.getElementById('sex').value;
     const goals = document.getElementById('goals').value;
     const activity = document.getElementById('activity').value;
@@ -20,9 +30,12 @@ document.getElementById('userForm').addEventListener('submit', function(e) {
         },
         body: JSON.stringify({ height, weight, sex, goals, activity }),
     })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('response').textContent = data.response;
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('response').textContent = data.response;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while processing your request.');
+        });
 });

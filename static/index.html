@@ -10,10 +10,12 @@
 <div class="container">
     <h1>Personalized Fitness Planner</h1>
     <form id="userForm">
-        <label for="height">Your Height:</label>
+        <label for="heightFeet">Height:</label>
         <div class="input-group">
-            <input type="text" id="height" placeholder="e.g., 5'11''" required>
-            <span class="input-unit">ft/in</span>
+            <input type="number" id="heightFeet" placeholder="Feet" required>
+            <span class="input-unit">ft</span>
+            <input type="number" id="heightInches" placeholder="Inches" required>
+            <span class="input-unit">in</span>
         </div>
         <label for="weight">Your Weight:</label>
         <div class="input-group">
