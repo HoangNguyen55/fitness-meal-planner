@@ -8,43 +8,47 @@ body {
 .container {
     background: #ffffff;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px; /* Slightly increased to accommodate new input fields */
     margin: 30px auto;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    position: relative; /* Needed for absolute positioning of background image */
 }
 
 h1 {
     color: #2c3e50;
     margin-bottom: 30px;
 }
+
 .input-group {
-    position: relative;
-    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* Added some space between input groups */
+}
+
+.input-group input[type="number"] {
+    width: calc(50% - 40px); /* Adjusted to account for the unit span width */
+    padding: 10px;
+    margin-right: 5px; /* Spacing between the inputs */
 }
 
 .input-unit {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     color: #888;
-    font-size: 14px;
+    font-size: 16px;
+    margin: 0 10px;
 }
 
-/* Adjust input field width to accommodate unit label */
-input[type="text"], input[type="number"] {
-    width: calc(100% - 50px); /* Adjust as needed */
-}
 input, select, button {
     width: calc(100% - 20px);
     padding: 10px;
-    margin: 10px 0;
+    margin-top: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
 }
+
 label {
     display: block;
     margin-top: 20px;
@@ -52,21 +56,10 @@ label {
     font-size: 18px;
 }
 
-.input-group label {
-    margin-top: 0;
-    margin-bottom: 5px;
+.button-container {
+    margin-top: 20px;
 }
-.background-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/static/fitness.png') no-repeat center center;
-    background-size: cover;
-    z-index: -1;
-    opacity: 0.3; /* Adjust for desired darkness */
-}
+
 button {
     background-color: #28a745; /* Green shade */
     color: white;
@@ -75,12 +68,14 @@ button {
     transform: scale(1);
     transition: transform 0.3s ease, background-color 0.3s ease;
     font-weight: bold;
+    width: 100%; /* Full width */
     margin-top: 20px;
-
+    padding: 12px; /* Slightly bigger for better clickability */
 }
 
 button:hover {
     background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slight grow effect */
 }
 
 #response {
@@ -92,4 +87,17 @@ button:hover {
     border-radius: 4px;
     text-align: left;
     font-size: 16px;
+    overflow-wrap: break-word; /* Ensures the text breaks to prevent overflow */
+}
+
+.background-image {
+    position: absolute; /* Changed to absolute */
+    top: -100px; /* Adjust as needed */
+    right: -100px; /* Adjust as needed */
+    width: 300px; /* Fixed width */
+    height: 300px; /* Fixed height */
+    background: url('/static/fitness.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.1; /* Subtle effect */
+    z-index: -1;
 }
