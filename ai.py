@@ -22,6 +22,7 @@ class AI:
         self.started = False
         self.model: Any = None
         self.tokenizer: Any = None
+        self.generating = False
 
     def start(self, model_path: PathLike | str):
         logging.info(f"Starting the AI at '{model_path}'")
@@ -65,8 +66,11 @@ class AI:
         if not self.started:
             logging.warn("AI have not been started yet")
             return "AI have not been started yet"
+        if self.generating:
+            return "AI is busy please try again"
 
-        prompt = f"I am a {sex}, my height are {height} ft, i weight {weight} pounds, my goal is to {goals} weight, and i want a {activity} activity level, please give me a personalized meal recommendations considering my profile to help me achieve my goals and support my activity. Ensure that the meals are well-balanced and aligned with my fitness objectives.\n"
+        self.generating = True
+        prompt = f"I am a {sex}, my height are {height} inches, i weight {weight} pounds, my goal is to {goals} weight, and i want a {activity} activity level, please give me a personalized meal recommendations considering my profile to help me achieve my goals and support my activity. Ensure that the meals are well-balanced and aligned with my fitness objectives.\n"
         complete_prompt = (
             f"<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n"
         )
@@ -76,13 +80,16 @@ class AI:
         output = self.model.generate(
             **input,
             streamer=streamer,
-            max_new_tokens=2048,
+            max_new_tokens=1024,
             eos_token_id=CHAT_EOS_TOKEN_ID,
         )
 
-        return self.tokenizer.batch_decode(output, skip_special_tokens=True)[0].replace(
-            f"user\n{prompt} \n assistant\n", ""
-        )
+        output = self.tokenizer.batch_decode(output, skip_special_tokens=True)[
+            0
+        ].replace(f"user\n{prompt} \n assistant\n", "")
+
+        self.generating = False
+        return output
 
 
 if __name__ == "__main__":
