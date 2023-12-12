@@ -23,7 +23,7 @@ document.getElementById('userForm').addEventListener('submit', function(e) {
     const goals = document.getElementById('goals').value;
     const activity = document.getElementById('activity').value;
 
-    fetch('http://localhost:6731/ask_ai', {
+    fetch('/ask_ai', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
